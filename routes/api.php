@@ -12,3 +12,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('qrcode', [QRCodeGeneratorController::class, 'generate'])
     ->name('qrcode.generate')->middleware([HandleInertiaRequests::class]);
+
+Route::get('qrcode', [QRCodeGeneratorController::class, 'generate']);

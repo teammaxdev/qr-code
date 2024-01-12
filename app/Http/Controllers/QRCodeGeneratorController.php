@@ -11,16 +11,18 @@ class QRCodeGeneratorController extends Controller
     public function generate(Request $request)
     {
         $data = (object)$request->validate([
-            'text' => ['required', 'string', 'max:100'],
+            'text' => ['required', 'string', 'max:300'],
             'version' => ['required', 'numeric', 'in:2,3,4,5'],
             'scale' => ['required', 'numeric', 'in:1,2,3,4,5,10,15,20'],
         ]);
 
         $path = date('Y/m');
+        Storage::makeDirectory('public/' . $path);
+        $fullPath = storage_path('app/public/' . $path);
 
         if ($file = QRCodeGenerator::fromText(
             $data->text,
-            storage_path('app/public/' . $path),
+            $fullPath,
             $data->version,
             $data->scale,
         )) {
