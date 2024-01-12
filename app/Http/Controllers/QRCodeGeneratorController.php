@@ -28,7 +28,7 @@ class QRCodeGeneratorController extends Controller
             $data->scale,
         )) {
             if (isset($data->return) && $data->return == 'base64'){
-                return Storage::get("public/$path/$file");
+                return response()->file(Storage::path("public/$path/$file"));
             }
 
             return response()->json([
