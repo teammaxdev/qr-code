@@ -14,6 +14,7 @@ class QRCodeGeneratorController extends Controller
             'text' => ['required', 'string', 'max:300'],
             'version' => ['required', 'numeric', 'in:2,3,4,5'],
             'scale' => ['required', 'numeric', 'in:1,2,3,4,5,10,15,20'],
+            'return' => ['nullable', 'string', 'in:json,base64'],
         ]);
 
         $path = date('Y/m');
@@ -26,6 +27,10 @@ class QRCodeGeneratorController extends Controller
             $data->version,
             $data->scale,
         )) {
+            if (isset($data->return) && $data->return == 'base64'){
+                return Storage::get("public/$path/$file");
+            }
+
             return response()->json([
                 'file' => asset(Storage::url("$path/$file")),
             ]);
