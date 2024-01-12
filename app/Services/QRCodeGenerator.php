@@ -30,7 +30,7 @@ class QRCodeGenerator
             'scale' => $scale,
             'eccLevel' => QRCode::ECC_L,
             'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-            'imageTransparent' => false,
+            'imageTransparent' => true,
             'imageBase64' => false
         ]);
 
